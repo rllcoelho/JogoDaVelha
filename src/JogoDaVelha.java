@@ -74,6 +74,7 @@ public class JogoDaVelha {
             }
         }
 
+        verificaDiagonal1();
         verificaDiagonal2();
 
         //Verifica e retorna quem ganhou, caso isso não tenha sido definido na verificação anterior
@@ -86,6 +87,19 @@ public class JogoDaVelha {
         else{
             return 0;
         }
+    }
+
+    public int verificaDiagonal1(){
+        //Verifica a outra diagonal
+                //Se 1 ganhou
+        if (grade[0][0] == 1 && grade[1][1] == 1 && grade[2][2] == 1){
+            return 1;
+        }
+                //Se 2 ganhou
+        else if (grade[0][0] == 2 && grade[1][1] == 2 && grade[2][2] == 2){
+            return 2;
+        }
+        continue;
     }
 
     public int verificaDiagonal2(){
