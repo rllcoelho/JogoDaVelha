@@ -4,7 +4,7 @@ public class JogoDaVelha {
     //espaços vazios = 0
     //jogador 1 (x) = 1
     //jogador 2 (o) = 2
-    
+
     public JogoDaVelha(){
         //instancia um vetor 3x3
         grade = new int[3][3];
@@ -49,10 +49,10 @@ public class JogoDaVelha {
         int verificaLinha = 3;
         int verificaColuna = 3;
         int verificaDiagonal = 3;
-        
+
         int i = 0;
         int j = 0;
-        
+
         /*if (
                 (grade[0][0] == 1 && grade[0][1] == 1 && grade[0][2] == 1)
                 ||
@@ -61,19 +61,19 @@ public class JogoDaVelha {
                 (grade[2][0] == 1 && grade[2][1] == 1 && grade[2][2] == 1)
                 )
             */
-        
+
         for (i = 0; i < 3; i++){
             verificaDiagonal = grade[i][i] == 1 ? verificaDiagonal - 1 : verificaDiagonal + 1;
             j = 0;
-            while (j < 3 && 
-                    (verificaLinha == 0 || verificaLinha == 6) && 
+            while (j < 3 &&
+                    (verificaLinha == 0 || verificaLinha == 6) &&
                     (verificaColuna < 0 || verificaColuna == 6) ){
                 verificaLinha = grade[i][j] == 1 ? verificaLinha - 1 : verificaLinha + 1;
                 verificaColuna = grade[j][i] == 1 ? verificaColuna - 1 : verificaColuna + 1;
                 j++;
             }
         }
-        
+
         //Verifica a outra diagonal
         if (grade[0][2] == 1 && grade[1][1] == 1 && grade[2][0] == 1){
         	return 1;
@@ -91,6 +91,19 @@ public class JogoDaVelha {
         }
         else{
             return 0;
+        }
+    }
+
+    public void mensagemFinal() {
+        if (vencedor() == 1) {
+            System.out.println("O vencedor é o primeiro jogador.");
+        }
+        if (vencedor() == 2) {
+            System.out.println("O vencedor é o segundo jogador.");
+        }
+
+        if (vencedor() == 0) {
+            System.out.println("Houve empate.");
         }
     }
 }
