@@ -19,7 +19,9 @@ public class JogoDaVelha {
 
    //imprime grade substituindo os números por seus respectivos caracteres
     public void exibeGrade() {
+    	System.out.println(" |0|1|2|");
         for (int i = 0; i < 3; i++){
+        	System.out.print(i + "|");
             for (int j = 0; j < 3; j++){
                 switch (grade[i][j]){
                     case 0:
@@ -32,6 +34,7 @@ public class JogoDaVelha {
                         System.out.print("o");
                         break;
                 }
+                System.out.print("|");
             }
             System.out.print("\n");
         }
@@ -63,13 +66,13 @@ public class JogoDaVelha {
             */
         
         for (i = 0; i < 3; i++){
-            verificaDiagonal = grade[i][i] == 1 ? verificaDiagonal - 1 : verificaDiagonal + 1;
+            verificaDiagonal = grade[i][i] == 0 ? verificaDiagonal : grade[i][i] == 1 ? verificaDiagonal - 1 : verificaDiagonal + 1;
             j = 0;
             while (j < 3 && 
-                    (verificaLinha == 0 || verificaLinha == 6) && 
-                    (verificaColuna < 0 || verificaColuna == 6) ){
-                verificaLinha = grade[i][j] == 1 ? verificaLinha - 1 : verificaLinha + 1;
-                verificaColuna = grade[j][i] == 1 ? verificaColuna - 1 : verificaColuna + 1;
+                    (verificaLinha > 0 || verificaLinha < 6) && 
+                    (verificaColuna > 0 || verificaColuna < 6) ){
+                verificaLinha = grade[i][j] == 0 ? verificaLinha : grade[i][i] == 1 ? verificaLinha - 1 : verificaLinha + 1;
+                verificaColuna = grade[j][i] == 0 ? verificaColuna : grade[i][i] == 1 ? verificaColuna - 1 : verificaColuna + 1;
                 j++;
             }
         }
@@ -92,5 +95,16 @@ public class JogoDaVelha {
         else{
             return 0;
         }
+    }
+    
+    public boolean velha(){
+    	for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+            	if (grade[i][j] == 0){
+            		return false;
+            	}
+            }
+        }
+    	return true;
     }
 }
