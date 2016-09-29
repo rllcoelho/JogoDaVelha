@@ -3,7 +3,7 @@ public class JogoDaVelha {
 
     //espaços vazios = 0
     //jogador 1 (x) = 1
-    //jogador 2 (o) = 2
+    //jogador 2 (o) = -1
     
     public JogoDaVelha(){
         //instancia um vetor 3x3
@@ -81,8 +81,8 @@ public class JogoDaVelha {
         if (grade[0][2] == 1 && grade[1][1] == 1 && grade[2][0] == 1){
         	return 1;
         }
-        else if (grade[0][2] == 2 && grade[1][1] == 2 && grade[2][0] == 2){
-        	return 2;
+        else if (grade[0][2] == -1 && grade[1][1] == -1 && grade[2][0] == -1){
+        	return -1;
         }
 
         //Verifica e retorna quem ganhou, caso isso não tenha sido definido na verificação anterior
@@ -90,7 +90,7 @@ public class JogoDaVelha {
             return 1;
         }
         else if (verificaLinha == 6 || verificaColuna == 6 || verificaDiagonal == 6){
-            return 2;
+            return -1;
         }
         else{
             return 0;
