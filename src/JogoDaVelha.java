@@ -19,7 +19,7 @@ public class JogoDaVelha {
 
    //imprime grade substituindo os números por seus respectivos caracteres
     public void exibeGrade() {
-    	System.out.println(" |0|1|2|");
+    	System.out.println("\n |0|1|2|");
         for (int i = 0; i < 3; i++){
         	System.out.print(i + "|");
             for (int j = 0; j < 3; j++){
@@ -30,7 +30,7 @@ public class JogoDaVelha {
                     case 1:
                         System.out.print("x");
                         break;
-                    case 2:
+                    case -1:
                         System.out.print("o");
                         break;
                 }
@@ -42,8 +42,14 @@ public class JogoDaVelha {
 
     //executa uma jogada, substituindo o valor da coordenada passada, pelo número do jogador
     //TODO: garantir que a jogada só possa ser executada em um espaço vazio
-    public void joga(int jogador, int linha, int coluna){
-        grade[linha][coluna] = jogador;
+    public boolean gravaJogada(int jogador, int linha, int coluna){
+    	if(grade[linha][coluna] == 0){
+    		grade[linha][coluna] = jogador;
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
     }
 
     //A cada jogada, verifica se alguém ganhou e quem foi
@@ -66,13 +72,48 @@ public class JogoDaVelha {
             */
         
         for (i = 0; i < 3; i++){
-            verificaDiagonal = grade[i][i] == 0 ? verificaDiagonal : grade[i][i] == 1 ? verificaDiagonal - 1 : verificaDiagonal + 1;
+            if(grade[i][i] == +1){
+        		verificaDiagonal -= 1;
+        		if(verificaDiagonal == 0){
+        			return +1;
+        		}
+        	}
+        	else if (grade[i][i] == -1){
+        		verificaDiagonal += 1;
+        		if(verificaDiagonal == 6){
+        			return -1;
+        		}
+        	}
             j = 0;
+            verificaLinha = 3;
+            verificaColuna = 3;
             while (j < 3 && 
                     (verificaLinha > 0 || verificaLinha < 6) && 
                     (verificaColuna > 0 || verificaColuna < 6) ){
-                verificaLinha = grade[i][j] == 0 ? verificaLinha : grade[i][i] == 1 ? verificaLinha - 1 : verificaLinha + 1;
-                verificaColuna = grade[j][i] == 0 ? verificaColuna : grade[i][i] == 1 ? verificaColuna - 1 : verificaColuna + 1;
+            	if(grade[i][j] == +1){
+            		verificaLinha -= 1;
+            		if(verificaLinha == 0){
+            			return +1;
+            		}
+            	}
+            	else if (grade[i][j] == -1){
+            		verificaLinha += 1;
+            		if(verificaLinha == 6){
+            			return -1;
+            		}
+            	}
+            	if(grade[j][i] == +1){
+            		verificaColuna -= 1;
+            		if(verificaColuna == 0){
+            			return +1;
+            		}
+            	}
+            	else if (grade[j][i] == -1){
+            		verificaColuna += 1;
+            		if(verificaColuna == 6){
+            			return -1;
+            		}
+            	}
                 j++;
             }
         }
@@ -85,13 +126,6 @@ public class JogoDaVelha {
         	return -1;
         }
 
-        //Verifica e retorna quem ganhou, caso isso não tenha sido definido na verificação anterior
-        if (verificaLinha == 0 || verificaColuna == 0 || verificaDiagonal == 0){
-            return 1;
-        }
-        else if (verificaLinha == 6 || verificaColuna == 6 || verificaDiagonal == 6){
-            return -1;
-        }
         else{
             return 0;
         }
